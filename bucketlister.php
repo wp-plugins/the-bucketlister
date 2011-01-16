@@ -3,7 +3,7 @@
 Plugin Name: The Bucketlister
 Plugin URI: http://line-in.co.uk/plugins/bucketlister
 Description: A plugin to help you manage your Bucket List cause, you know, you're gonna die soon. If this thought is a bit too morbid, come see how much fun we're having at <a href='http://www.neverendingvoyage.com'>Never Ending Voyage</a>.
-Version: 0.1.0
+Version: 0.1.1
 Author: Simon Fairbairn
 Author URI: http://line-in.co.uk
 */
@@ -89,6 +89,8 @@ if ( !function_exists('bucketlister_display') ) {
 	}
 }
 add_shortcode('bucketlister', 'bucketlister_display');
+
+
 if ( !function_exists( 'bucketlister_prepare_body' ) ) {
 	function bucketlister_prepare_body($order, $where_clause = '') {
 		$even = false;

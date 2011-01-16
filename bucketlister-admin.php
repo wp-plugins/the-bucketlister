@@ -262,14 +262,9 @@ if ( !function_exists('bucketlister_insert_item') ) {
 				$return['error'] = true;
 				$return['message'] = "Completed date invalid";			
 			} else {
-				try {
-					$completed_date = new DateTime(	$items['completed']['year'] . '-' . $items['completed']['month'] . '-' 	. $items['completed']['day'] );	
-				} catch (Exception $e) 	{
-					echo $e->getMessage();	
-				}
-							
+				$completed_date = new DateTime(	$items['completed']['year'] . '-' . $items['completed']['month'] . '-' 	. $items['completed']['day'] );	
 				$sql_array['datecompleted'] = $completed_date->format('Y-m-d H:i:s');
-				$sql_type[] = '%d';
+				$sql_type[] = '%s';
 				
 			}
 		}
@@ -286,11 +281,7 @@ if ( !function_exists('bucketlister_insert_item') ) {
 			$sql_array['cat_id'] = $items['category'];
 			$sql_type[] = '%d';
 		}
-		try {
-			$target_date = new DateTime( $items['target']['year'] . '-' . $items['target']['month'] . '-' 	. $items['target']['day'] );	
-		} catch (Exception $e) 	{
-			echo $e->getMessage();	
-		}
+		$target_date = new DateTime( $items['target']['year'] . '-' . $items['target']['month'] . '-' 	. $items['target']['day'] );	
 		$sql_array['datemodified'] = $target_date->format('Y-m-d H:i:s');
 		$sql_type[] = '%s';
 		$sql_array['item'] = $items['name'];

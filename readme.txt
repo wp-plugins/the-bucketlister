@@ -4,7 +4,7 @@ Donate link: http://line-in.co.uk/plugins/donate
 Tags: lists,death,buckets
 Requires at least: 2.8
 Tested up to: 3.0.1
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 
 Holy crap! You're going to die! Best make a list...
 
@@ -45,6 +45,9 @@ Instead, take a deep breath, then start making a list of all the cool things tha
 1. Screenshot of the Bucketlister input panel
 
 == Changelog ==
+
+= 0.1.0 =
+* Bugfix. 
 
 = 0.1.0 =
 * First release. There will be bugs. Do a developer a solid, and let him know if you find any. Ta.
