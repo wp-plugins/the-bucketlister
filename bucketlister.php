@@ -3,7 +3,7 @@
 Plugin Name: The Bucketlister
 Plugin URI: http://line-in.co.uk/plugins/bucketlister
 Description: A plugin to help you manage your Bucket List cause, you know, you're gonna die soon. If this thought is a bit too morbid, come see how much fun we're having at <a href='http://www.neverendingvoyage.com'>Never Ending Voyage</a>.
-Version: 0.1.1
+Version: 0.1.3
 Author: Simon Fairbairn
 Author URI: http://line-in.co.uk
 */
@@ -138,10 +138,10 @@ add_action('init', 'bucketlister_scripts');
 if ( !function_exists( 'bucketlister_scripts' ) ) {
 	function bucketlister_scripts() {
 		if ( !is_admin() )
-			wp_enqueue_script('bucketlister-js', WP_PLUGIN_URL . '/bucketlister/js/bucketlister.js', array('jquery'), '0.1.1', true);
+			wp_enqueue_script('bucketlister-js', WP_PLUGIN_URL . '/the-bucketlister/js/bucketlister.js', array('jquery'), '0.1.1', true);
 		else
-			wp_enqueue_script('bucketlister-js', WP_PLUGIN_URL . '/bucketlister/js/bucketlister-admin.js', array('jquery'), '0.1.1', true);
-		wp_enqueue_style('bucketlister-css', WP_PLUGIN_URL . '/bucketlister/css/bucketlister.css');
+			wp_enqueue_script('bucketlister-js', WP_PLUGIN_URL . '/the-bucketlister/js/bucketlister-admin.js', array('jquery'), '0.1.1', true);
+		wp_enqueue_style('bucketlister-css', WP_PLUGIN_URL . '/the-bucketlister/css/bucketlister.css');
 	}
 }
 

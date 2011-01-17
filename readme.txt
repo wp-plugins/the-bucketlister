@@ -4,7 +4,7 @@ Donate link: http://line-in.co.uk/plugins/donate
 Tags: lists,death,buckets
 Requires at least: 2.8
 Tested up to: 3.0.1
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 
 Holy crap! You're going to die! Best make a list...
 
