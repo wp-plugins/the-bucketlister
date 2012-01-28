@@ -46,6 +46,9 @@ Instead, take a deep breath, then start making a list of all the cool things tha
 
 == Changelog ==
 
+= 0.1.4 =
+* For themes that support it, no longer loads unnecessary CSS and JS
+
 = 0.1.0 =
 * Bugfix. 
 

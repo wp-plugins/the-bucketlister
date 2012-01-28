@@ -3,13 +3,13 @@
 Plugin Name: The Bucketlister
 Plugin URI: http://line-in.co.uk/plugins/bucketlister
 Description: A plugin to help you manage your Bucket List cause, you know, you're gonna die soon. If this thought is a bit too morbid, come see how much fun we're having at <a href='http://www.neverendingvoyage.com'>Never Ending Voyage</a>.
-Version: 0.1.3
+Version: 0.1.4
 Author: Simon Fairbairn
 Author URI: http://line-in.co.uk
 */
 global $bucketlister_version;
 global $nevcats_version;
-$bucketlister_version = "0.1.0";
+$bucketlister_version = "0.1.4";
 $nevcats_version = "0.1.0";
 
 if ( is_admin() )
@@ -137,11 +137,18 @@ if ( !function_exists( 'bucketlister_prepare_body' ) ) {
 add_action('init', 'bucketlister_scripts');
 if ( !function_exists( 'bucketlister_scripts' ) ) {
 	function bucketlister_scripts() {
-		if ( !is_admin() )
-			wp_enqueue_script('bucketlister-js', WP_PLUGIN_URL . '/the-bucketlister/js/bucketlister.js', array('jquery'), '0.1.1', true);
-		else
+		global $octopus_framework;
+		if ( !is_admin()  ) {
+			if ( !is_object($octopus_framework ) ) {
+				wp_enqueue_script('bucketlister-js', WP_PLUGIN_URL . '/the-bucketlister/js/bucketlister.js', array('jquery'), '0.1.1', true);
+			}
+		} else {
 			wp_enqueue_script('bucketlister-js', WP_PLUGIN_URL . '/the-bucketlister/js/bucketlister-admin.js', array('jquery'), '0.1.1', true);
-		wp_enqueue_style('bucketlister-css', WP_PLUGIN_URL . '/the-bucketlister/css/bucketlister.css');
+			wp_enqueue_style('bucketlister-css', WP_PLUGIN_URL . '/the-bucketlister/css/bucketlister.css');			
+		}
+		if ( !is_object($octopus_framework) ) {
+			wp_enqueue_style('bucketlister-css', WP_PLUGIN_URL . '/the-bucketlister/css/bucketlister.css');
+		}
 	}
 }
 
