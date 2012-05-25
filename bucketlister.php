@@ -3,17 +3,55 @@
 Plugin Name: The Bucketlister
 Plugin URI: http://line-in.co.uk/plugins/bucketlister
 Description: A plugin to help you manage your Bucket List cause, you know, you're gonna die soon. If this thought is a bit too morbid, come see how much fun we're having at <a href='http://www.neverendingvoyage.com'>Never Ending Voyage</a>.
-Version: 0.1.5
+Version: 0.1.6
 Author: Simon Fairbairn
 Author URI: http://line-in.co.uk
 */
 global $bucketlister_version;
 global $nevcats_version;
-$bucketlister_version = "0.1.4";
+$bucketlister_version = "0.1.6";
 $nevcats_version = "0.1.0";
 
 if ( is_admin() )
 	require_once('bucketlister-admin.php');
+
+
+/**
+ *	Because plugin classes won't be instantiated unless the plugin is activated, you'll have to 
+ *	declare static methods within the main plugin class that can be activated from a class (as 
+ *	opposed to object) context. I've included example methods for you which you can ignore or delete.
+ */
+/**
+ *	Run on plugin activation. You can load your default options into the db at this point, but I don't recommend it.
+ *	Use the extensive Settings API support that I've built in instead.
+ */
+register_activation_hook(__FILE__, array( 'MTP_LI_Plugin', 'install_plugin' ) );
+
+/**
+ *	Run on plugin deactivation. It's up to you whether you want to delete options at this point, but remember
+ *	some users will deactivate plugins just to test for bugs so it's not usually recommended, especially if you
+ *	have a lot of complex options. Additional, dormant options in a MySQL will have precisely 0 impact on performance.
+ *
+ *	I've run tests where I've added thousands of huge arrays to the wp_options table and it's had basically no effect 
+ *	on the MySQL lookup. Sometimes the DB query speed even decreased (if you can explain that one to me), so don't
+ *	be over-zealous with deleting options thinking you're helping your users!
+ */
+register_deactivation_hook(__FILE__, array( 'MTP_LI_Plugin', 'uninstall_plugin') );
+
+/**
+ * 	Initiate the class
+ *	@return	object	My_Test_Plugin object
+ */
+function MTP_class_call() {
+    return new MTP_LI_Plugin();
+}
+add_action( 'after_setup_theme', 'MTP_class_call' );
+
+class LI_Bucketlister {
+
+
+
+}
 
 if ( !function_exists('bucketlister_display') ) {
 	function bucketlister_display($atts) {

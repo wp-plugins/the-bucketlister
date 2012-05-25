@@ -59,3 +59,6 @@ Instead, take a deep breath, then start making a list of all the cool things tha
 
 = 0.1.5 = 
 * Added support for years in the past for things that you've already done prior to this year
+
+= 0.1.6 =
+* Better error checking for the DateTime class (now deactivates itself if not found)
