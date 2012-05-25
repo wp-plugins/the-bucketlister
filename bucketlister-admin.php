@@ -104,7 +104,7 @@ if ( !function_exists( 'bucketlister_options' ) ) {
 		echo '<h2>The Bucketlister</h2>';
 		echo $message;
 		
-		if ( class_exists('DateTime') ) {
+		if ( !class_exists('DateTime') ) {
 			echo "<div class='error'><h3>Awww, pants. A Totally Fatal Error.</h3><p>Unfortunately, the DateTime class needed to run this plugin isn't available on your server. You should email your hosting provider and tell them to get their ass into the 21st century, post haste.</p><p>Until they get all futuristic, though, you won't be able to use this incredibly awesome plugin. Sorry about that.</p>
 			<p><strong>Geeky Information</strong></p><p>This plugin assumes that you're going to live until at least 2080, but the current UNIX timestamps only go up to 2038 (it's to do with 32bit integers and the number of seconds since the 1st of January 1970). In order to get round this, I decided to get all modern and use the new PHP DateTime class which has support for dates billions of years in the future (let's hope we all live until THEN!).</p><p>However, in order to use this class, your version of PHP needs to have it installed. If it doesn't, this plugin ceases to function and, in your case my friend, it does not. Sucks, I know.</p></div>";
 			wp_die("");
@@ -116,7 +116,7 @@ if ( !function_exists( 'bucketlister_options' ) ) {
 		echo "<table class='widefat fixed bucketlister-table'>";
 		echo "<thead>";
 		echo "<tr class='thead'>";
-		echo "<th class='column-comments'>ID</th>";
+		echo "<th class='column-title'>ID</th>";
 		echo "<th class='manage-column column-title'>Item</th>";
 		echo "<th class='manage-column column-title'>Category</th>";
 		
@@ -385,8 +385,8 @@ if ( !function_exists('bucketlister_dates') ) {
 			// return $dropdown->get_select($id, '-Month-', $options , $selected );
 		} else if ( $type == 'year' ) {
 			$options = array();
-			$this_year = date('Y', time() );
-			for ( $i = 0; $i < 80; $i++ ) {
+			$this_year = 1960;
+			for ( $i = 0; $i < 160; $i++ ) {
 				$options[$this_year + $i] = $this_year + $i;
 			}
 			$default = '-Year-';
