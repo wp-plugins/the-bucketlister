@@ -7,6 +7,109 @@ Version: 0.1.6
 Author: Simon Fairbairn
 Author URI: http://line-in.co.uk
 */
+
+define('BUCKETLISTER_VERSION', "0.1.6");
+
+register_activation_hook(__FILE__, array( 'LI_Bucketlister', 'install_plugin' ) );
+register_deactivation_hook(__FILE__, array( 'LI_Bucketlister', 'uninstall_plugin') );
+
+/**
+ * 	instantiate the class
+ *	@return	object	My_Test_Plugin object
+ */
+function LI_Bucketlister_call() {
+    return LI_Bucketlister::init();
+}
+add_action( 'after_setup_theme', 'LI_Bucketlister_call' );
+
+class LI_Table_Manager {
+	static $prefix = false;
+	private $name;
+	private $fields;
+
+	static function tableItemWithName( $name = false ) {
+		$item = new self();
+
+		if ( $name ) {
+			$item->setName( $name );
+		}
+		return $item;
+	}
+
+	public function __construct() {
+		if ( !self::$prefix ) {
+			global $wpdb;
+			self::$prefix = $wpdb->prefix;
+		}
+	}
+
+	public function setName( $name ) {
+		$this->name = self::$prefix . $name;
+	}
+	public function getName() {
+		echo $this->name;
+	}
+
+}
+
+
+class LI_Bucketlister {
+	static $object = false;
+	static $version = "0.1.6";
+	static $bucketlisterTableName = "bucketlister";
+	static $bucketlisterCategoryName = "nevcats";
+	
+
+	static function install_plugin() {
+
+
+		global $wpdb;
+		$bucketlisterTableName = $wpdb->prefix . 'bucketlister';
+		$bucketlisterCategoryName = $wpdb->prefix . 'nevcats';
+
+		// $sql = "ALTER TABLE " . $bucketlisterTableName . "  DROP `newitem`";
+		// $wpdb->query($sql);
+ 
+		if ( self::$version != get_option('bucketlister_version') ) {
+			$sql = "CREATE TABLE " . $bucketlisterTableName . " (
+				id mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				item varchar(255) NOT NULL,
+				datecreated datetime,
+				datecompleted datetime,
+				datemodified datetime,
+				cat_id mediumint(9)
+			);";
+			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+			dbDelta($sql);	
+			update_option('bucketlister_version', self::$version);
+		}
+	}
+	static function uninstall_plugin() {
+
+	}
+	static function deleteData() {
+		global $wpdb;
+		wp_die('deleting data');
+	}
+
+	public function init() {
+		if ( !self::$object ) {
+			self::$object = new self();
+		}
+		return self::$object;
+	}
+
+
+	private function __construct() {
+		
+	}
+
+}
+
+
+
+
+
 global $bucketlister_version;
 global $nevcats_version;
 $bucketlister_version = "0.1.6";
@@ -16,42 +119,7 @@ if ( is_admin() )
 	require_once('bucketlister-admin.php');
 
 
-/**
- *	Because plugin classes won't be instantiated unless the plugin is activated, you'll have to 
- *	declare static methods within the main plugin class that can be activated from a class (as 
- *	opposed to object) context. I've included example methods for you which you can ignore or delete.
- */
-/**
- *	Run on plugin activation. You can load your default options into the db at this point, but I don't recommend it.
- *	Use the extensive Settings API support that I've built in instead.
- */
-register_activation_hook(__FILE__, array( 'MTP_LI_Plugin', 'install_plugin' ) );
 
-/**
- *	Run on plugin deactivation. It's up to you whether you want to delete options at this point, but remember
- *	some users will deactivate plugins just to test for bugs so it's not usually recommended, especially if you
- *	have a lot of complex options. Additional, dormant options in a MySQL will have precisely 0 impact on performance.
- *
- *	I've run tests where I've added thousands of huge arrays to the wp_options table and it's had basically no effect 
- *	on the MySQL lookup. Sometimes the DB query speed even decreased (if you can explain that one to me), so don't
- *	be over-zealous with deleting options thinking you're helping your users!
- */
-register_deactivation_hook(__FILE__, array( 'MTP_LI_Plugin', 'uninstall_plugin') );
-
-/**
- * 	Initiate the class
- *	@return	object	My_Test_Plugin object
- */
-function MTP_class_call() {
-    return new MTP_LI_Plugin();
-}
-add_action( 'after_setup_theme', 'MTP_class_call' );
-
-class LI_Bucketlister {
-
-
-
-}
 
 if ( !function_exists('bucketlister_display') ) {
 	function bucketlister_display($atts) {
